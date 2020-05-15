@@ -1,0 +1,89 @@
+@import (inline) 'plyr/dist/plyr.css';
+@import (inline) 'tippy.js/dist/tippy.css';
+@import (inline) 'tippy.js/themes/light.css';
+@import (inline) 'tippy.js/animations/shift-toward-subtle.css';
+
+.plyr__container-wrapper {
+    width: 100%;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    height: auto;
+    z-index: 10000;
+    box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.3);
+    background-color: #fff;
+
+    .plyr {
+        --plyr-color-main: #ff4a4a;
+        --plyr-control-spacing: 13px;
+
+        max-width: 70%;
+        margin: 0 auto;
+
+        .plyr__controls {
+            padding: 6px !important;
+        }
+
+        .plyr__preview {
+            width: 40px;
+            height: 40px;
+
+            margin-right: 6px !important;
+
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center center;
+            border-radius: 4px;
+        }
+
+        @media (max-width: 992px) {
+            max-width: 90%;
+        }
+
+        @media (max-width: 620px) {
+            max-width: 97%;
+        }
+    }
+}
+
+
+.mangoplry__play-button {
+    width: 32px;
+    height: 32px;
+    position: absolute;
+    z-index: 101;
+
+    border-width: 0;
+
+    background: #FFF inline-svg('../images/play.svg', 'play', 'fill: #ff4a4a') no-repeat;
+    background-size: cover;
+
+    padding: 0;
+    outline: 0;
+
+    right: 20px;
+    top: 15px;
+
+    cursor: pointer;
+
+    &.mangoplry__play-button-active {
+        background-image: inline-svg('../images/pause.svg', 'pause', 'fill: #ff4a4a');
+    }
+
+    &:hover {
+        background-image: inline-svg('../images/play.svg', 'play', 'fill: #000');
+
+        &.mangoplry__play-button-active {
+            background-image: inline-svg('../images/pause.svg', 'pause', 'fill: #000');
+        }
+    }
+}
+
+.tippy-box[data-theme~='light'] {
+    opacity: .95;
+    box-shadow: -1px 1px 4px rgba(0,0,0,.25);
+}
+
+.t778 .js-product-sku {
+    display: none !important;
+}
