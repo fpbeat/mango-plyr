@@ -1,7 +1,5 @@
 @import (inline) 'plyr/dist/plyr.css';
-@import (inline) 'tippy.js/dist/tippy.css';
-@import (inline) 'tippy.js/themes/light.css';
-@import (inline) 'tippy.js/animations/shift-toward-subtle.css';
+
 
 .plyr__container-wrapper {
     width: 100%;
@@ -46,6 +44,55 @@
     }
 }
 
+.mangoplry__views-label {
+    position: absolute;
+    right: 20px;
+    bottom: 0;
+    z-index: 101;
+
+    background: inline-svg('../images/eye.svg', 'eye', 'fill: #666') no-repeat 0 -1px;
+    background-size: 18px auto;
+
+    padding-left: 23px;
+    padding-bottom: 33px;
+
+    font-family: 'Roboto', Arial, sans-serif;
+    font-weight: 300;
+    opacity: 0;
+
+    font-size: 13px;
+    color: #666;
+
+    transition: opacity .15s ease;
+
+    &.mangoplry__views-label-active {
+        opacity: 1;
+    }
+
+    @media (max-width: 672px) {
+        position: relative;
+        background: none;
+        padding: 11px 0 0 20px;
+
+        font-size: 9px;
+        color: #333;
+
+        white-space: nowrap;
+
+        &:before {
+            content: "Заинтересовались: ";
+            font-size: 9px;
+            color: #8e8e8e;
+
+        }
+    }
+}
+
+.t778__textwrapper {
+    @media (max-width: 672px) {
+        padding-bottom: 9px !important;
+    }
+}
 
 .mangoplry__play-button {
     width: 32px;
@@ -55,7 +102,7 @@
 
     border-width: 0;
 
-    background: #FFF inline-svg('../images/play.svg', 'play', 'fill: #ff4a4a') no-repeat;
+    background: inline-svg('../images/play.svg', 'play', 'fill: #ff4a4a') no-repeat;
     background-size: cover;
 
     padding: 0;
@@ -77,11 +124,6 @@
             background-image: inline-svg('../images/pause.svg', 'pause', 'fill: #000');
         }
     }
-}
-
-.tippy-box[data-theme~='light'] {
-    opacity: .95;
-    box-shadow: -1px 1px 4px rgba(0,0,0,.25);
 }
 
 .t778 .js-product-sku {

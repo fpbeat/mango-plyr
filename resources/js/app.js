@@ -3,27 +3,31 @@ import {GenericUtil, ElementUtil, ArrayUtil, StringUtil, ObjectUtil} from './lib
 import Player from './player/index';
 import Statistics from './statistics/index';
 
-import tippy from 'tippy.js';
 import EventEmitter from 'events';
 
 import '../styles/app.less';
 
-class App extends EventEmitter {
+class Application extends EventEmitter {
 
     options = {
         texts: {
-            views: 'Заинтересовались песней -  {count} чел.'
+            viewsShort:  '{count} чел.',
+            viewsTitle: 'Заинтересовались песней - {count} чел.'
         },
         selectors: {
             blocks: '.t778 > div > div[data-product-lid]',
 
-            content: '.t778__content',
+            playPlace: '.t778__content',
+            viewsPlace: '.t778__content .t778__textwrapper',
             image: '.t-bgimg',
             sku: '.js-product-sku',
         },
         classes: {
             play: 'mangoplry__play-button',
-            active: 'mangoplry__play-button-active',
+            playActive: 'mangoplry__play-button-active',
+
+            views: 'mangoplry__views-label',
+            viewsActive: 'mangoplry__views-label-active'
         },
 
         statistics: {},
@@ -45,7 +49,7 @@ class App extends EventEmitter {
     }
 
     bootstrap() {
-        this.blocks = this.getBlocks();
+        this.blocks = this.parseBlocks();
 
         this.player = new Player(ObjectUtil.merge(true, {
             onStatechange: state => {
@@ -62,11 +66,11 @@ class App extends EventEmitter {
         }, this.options.player));
 
         this.statistics = new Statistics(ObjectUtil.merge(true, {
-            onFetched: this.attachTippies.bind(this)
+            onFetched: this.attachViewsLabels.bind(this)
         }, this.options.statistics));
     }
 
-    getBlocks() {
+    parseBlocks() {
         let blocks = {};
 
         const elements = document.querySelectorAll(this.options.selectors.blocks);
@@ -84,7 +88,8 @@ class App extends EventEmitter {
                         events: {
                             click: this.playStart.bind(this, id)
                         }
-                    })
+                    }),
+                    views: this.createViewsLabel(element)
                 };
             }
         }
@@ -103,7 +108,17 @@ class App extends EventEmitter {
         this.statistics.store(id);
         this.currentPlayed = id;
 
-        this.updateTippyContent(current.play);
+        this.updateViewsContent(current.views);
+    }
+
+    createViewsLabel(element) {
+        const button = ElementUtil.create('DIV', {
+            class: this.options.classes.views
+        });
+
+        ElementUtil.inject(element.querySelector(this.options.selectors.viewsPlace), button);
+
+        return button;
     }
 
     createPlayButton(element, attributes) {
@@ -111,45 +126,49 @@ class App extends EventEmitter {
             class: this.options.classes.play
         }, attributes));
 
-        ElementUtil.inject(element.querySelector(this.options.selectors.content), button);
+        ElementUtil.inject(element.querySelector(this.options.selectors.playPlace), button);
 
         return button;
     }
 
     togglePlayButton(block, state) {
-        ElementUtil.set(block.play, 'class', (state === 'pause' ? '!' : '') + this.options.classes.active);
+        ElementUtil.set(block.play, 'class', (state === 'pause' ? '!' : '') + this.options.classes.playActive);
     }
 
-    attachTippies(data) {
+    attachViewsLabels(data) {
         for (let [id, value] of Object.entries(this.blocks)) {
             const count = data[id] || 0;
 
-            ElementUtil.set(value.play, 'data-count', count);
-
-            tippy(value.play, {
-                content: StringUtil.substitute(this.options.texts.views, {
+            ElementUtil.set(value.views, {
+                class: this.options.classes.viewsActive,
+                dataCount: count,
+                text: StringUtil.substitute(this.options.texts.viewsShort, {
                     count: count
                 }),
-                theme: 'light',
-                arrow: false,
-                animation: 'shift-toward-subtle',
-                placement: 'top-start',
-                hideOnClick: false
+
+                title: StringUtil.substitute(this.options.texts.viewsTitle, {
+                    count: count
+                })
             });
         }
     }
 
-    updateTippyContent(element) {
-        if (element._tippy !== void 0) {
-            const count = parseInt(ElementUtil.getDataAttribute(element, 'count', 0), 10);
-            element._tippy.setContent(StringUtil.substitute(this.options.texts.views, {
+    updateViewsContent(element) {
+        const count = parseInt(ElementUtil.getDataAttribute(element, 'count', 0), 10);
+
+        ElementUtil.set(element, {
+            text: StringUtil.substitute(this.options.texts.viewsShort, {
                 count: count + 1
-            }));
-        }
+            }),
+
+            title: StringUtil.substitute(this.options.texts.viewsTitle, {
+                count: count + 1
+            })
+        });
     }
 }
 
 export default {
     version: 'VERSION',
-    create: (options) => new App(options)
+    create: (options) => new Application(options)
 };

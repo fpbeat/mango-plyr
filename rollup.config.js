@@ -14,7 +14,7 @@ import replace from '@rollup/plugin-replace';
 import babel from '@rollup/plugin-babel';
 import commonjs from '@rollup/plugin-commonjs';
 import less from 'rollup-plugin-less';
-import builtins from 'rollup-plugin-node-builtins';
+import nodePolyfills from 'rollup-plugin-node-polyfills';
 
 import { uglify } from 'rollup-plugin-uglify';
 
@@ -22,7 +22,7 @@ export default {
     input: './resources/js/app.js',
 
     output: {
-        file: './public/js/app.js',
+        file: './public/js/dist.js',
         name: 'mangoPlyr',
         format: 'iife',
     },
@@ -40,7 +40,7 @@ export default {
             exclude: ['node_modules/**']
         }),
         less({
-            output: './public/css/app.css',
+            output: './public/css/dist.css',
             option: {
                 plugins: [inlineSvg],
                 paths: [
@@ -48,7 +48,7 @@ export default {
                 ]
             }
         }),
-        builtins(),
+        nodePolyfills(),
         replace({
             VERSION: String(pkg.version),
             'process.env.NODE_ENV': JSON.stringify('development')
