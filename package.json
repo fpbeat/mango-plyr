@@ -1,6 +1,6 @@
 {
   "name": "tilda-player",
-  "version": "1.0",
+  "version": "1.0.1",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -9,13 +9,9 @@
   "main": "app.js",
   "copyright": "Roman Zhakhov",
   "dependencies": {
-    "@rollup/plugin-replace": "^2.3.2",
     "core-js": "^3.6",
-    "event-emitter": "^0.3.5",
     "extend": "^3.0.2",
-    "less-plugin-inline-svg": "^2.0.1",
-    "plyr": "^3.6.2",
-    "tippy.js": "^6.2.3"
+    "plyr": "^3.6.2"
   },
   "devDependencies": {
     "@babel/core": "^7.9",
@@ -26,8 +22,10 @@
     "@rollup/plugin-babel": "^5.0",
     "@rollup/plugin-commonjs": "^11.0",
     "@rollup/plugin-node-resolve": "^7.1",
+    "@rollup/plugin-replace": "^2.3.2",
     "rollup-plugin-less": "^1.1.2",
-    "rollup-plugin-node-builtins": "^2.1.2",
+    "rollup-plugin-node-polyfills": "^0.2.1",
+    "less-plugin-inline-svg": "^2.0.1",
     "rollup-plugin-uglify": "^6.0"
   }
 }
