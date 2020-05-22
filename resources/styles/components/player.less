@@ -1,0 +1,130 @@
+@import (inline) 'plyr/dist/plyr.css';
+
+.plyr__container-wrapper {
+  width: 100%;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  height: auto;
+  z-index: 10000000;
+  box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.3);
+  background-color: #fff;
+
+  .plyr {
+    --plyr-color-main: #ff4a4a;
+    --plyr-control-spacing: 13px;
+
+    max-width: 70%;
+    margin: 0 auto;
+
+    .plyr__controls {
+      padding: 6px !important;
+    }
+
+    .plyr__preview {
+      width: 40px;
+      height: 40px;
+
+      margin-right: 6px !important;
+
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-position: center center;
+      border-radius: 4px;
+    }
+
+    @media (max-width: 992px) {
+      max-width: 90%;
+    }
+
+    @media (max-width: 620px) {
+      max-width: 97%;
+    }
+  }
+}
+
+.mangoplry__views-label {
+  position: absolute;
+  right: 20px;
+  bottom: 0;
+  z-index: 101;
+
+  background: inline-svg('../../images/eye.svg', 'eye', 'fill: #666') no-repeat 0 -1px;
+  background-size: 18px auto;
+
+  padding-left: 23px;
+  padding-bottom: 33px;
+
+  font-family: 'Roboto', Arial, sans-serif;
+  font-weight: 300;
+  opacity: 0;
+
+  font-size: 13px;
+  color: #666;
+
+  transition: opacity .15s ease;
+
+  &.mangoplry__views-label-active {
+    opacity: 1;
+  }
+
+  @media (max-width: 672px) {
+    position: relative;
+    background: none;
+    padding: 11px 0 0 20px;
+
+    font-size: 9px;
+    color: #333;
+
+    white-space: nowrap;
+
+    &:before {
+      content: "Заинтересовались: ";
+      font-size: 9px;
+      color: #8e8e8e;
+
+    }
+  }
+}
+
+.t778__textwrapper {
+  @media (max-width: 672px) {
+    padding-bottom: 9px !important;
+  }
+}
+
+.mangoplry__play-button {
+  width: 32px;
+  height: 32px;
+  position: absolute;
+  z-index: 101;
+
+  border-width: 0;
+
+  background: inline-svg('../../images/play.svg', 'play', 'fill: #ff4a4a') no-repeat;
+  background-size: cover;
+
+  padding: 0;
+  outline: 0;
+
+  right: 20px;
+  top: 15px;
+
+  cursor: pointer;
+
+  &.mangoplry__play-button-active {
+    background-image: inline-svg('../../images/pause.svg', 'pause', 'fill: #ff4a4a');
+  }
+
+  &:hover {
+    background-image: inline-svg('../../images/play.svg', 'play', 'fill: #000');
+
+    &.mangoplry__play-button-active {
+      background-image: inline-svg('../../images/pause.svg', 'pause', 'fill: #000');
+    }
+  }
+}
+
+.t778 .js-product-sku {
+  display: none !important;
+}

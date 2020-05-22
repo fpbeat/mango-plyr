@@ -23,7 +23,7 @@ export default {
 
     output: {
         file: './public/js/dist.js',
-        name: 'mangoPlyr',
+        name: 'mangoTools',
         format: 'iife',
     },
     plugins: [
@@ -34,7 +34,12 @@ export default {
             include: 'node_modules/**',
         }),
         alias({
-            '~': path.resolve(__dirname, './resources/js/')
+            entries: [
+                {
+                    find: '~',
+                    replacement: path.resolve(__dirname, './resources/js')
+                }
+            ]
         }),
         babel({
             exclude: ['node_modules/**']

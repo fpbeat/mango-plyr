@@ -1,4 +1,4 @@
-import {ArrayUtil, ElementUtil, GenericUtil} from '../lib/utils';
+import {ArrayUtil, ElementUtil, GenericUtil} from '~/lib/utils';
 
 import Plyr from 'plyr';
 import EventEmitter from 'events';
@@ -34,27 +34,22 @@ export default class extends EventEmitter {
     }
 
     buildPlayerHTML() {
-        this.wrapper = ElementUtil.create('DIV', {
+        const wrapper = ElementUtil.createAndInject('DIV', {
             class: this.options.classes.wrapper
-        });
+        }, document.body);
 
-        const audio = ElementUtil.create('AUDIO', {
+        return ElementUtil.createAndInject('AUDIO', {
             controls: true
-        });
-
-        ElementUtil.inject(document.body, ElementUtil.inject(this.wrapper, audio));
-
-        return audio;
+        }, wrapper);
     }
 
     createPreview(image) {
-        let preview = ElementUtil.create('DIV', {
+        ElementUtil.createAndInject('DIV', {
             class: this.options.classes.preview,
-        });
-
-        preview.style.backgroundImage = 'url(' + image + ')';
-
-        ElementUtil.inject(this.player.elements.controls, preview, 'top');
+            styles: {
+                backgroundImage: 'url(' + image + ')'
+            }
+        }, this.player.elements.controls, 'top');
     }
 
     toggle(file, image) {

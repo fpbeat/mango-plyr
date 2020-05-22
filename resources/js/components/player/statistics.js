@@ -1,4 +1,4 @@
-import {GenericUtil} from '../lib/utils';
+import {GenericUtil} from '~/lib/utils';
 
 import EventEmitter from 'events';
 

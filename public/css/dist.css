@@ -5,7 +5,7 @@
   left: 0;
   bottom: 0;
   height: auto;
-  z-index: 10000;
+  z-index: 10000000;
   box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.3);
   background-color: #fff;
 }
@@ -101,4 +101,43 @@
 }
 .t778 .js-product-sku {
   display: none !important;
+}
+.mangotools__tinkoff-container {
+  width: 100%;
+  padding-top: 10px;
+  display: flex;
+  justify-content: space-between;
+}
+.mangotools__tinkoff-container a {
+  color: #FFF !important;
+  border-radius: 5px;
+  width: calc(50% - 5px);
+  line-height: 45px;
+  padding: 0;
+}
+.mangotools__tinkoff-container .mangotools__tinkoff-credit {
+  background-color: #38a80e;
+}
+.mangotools__tinkoff-container .mangotools__tinkoff-credit:hover {
+  background-color: #30900c !important;
+}
+.mangotools__tinkoff-container .mangotools__tinkoff-installments {
+  background-color: #3c5acb;
+}
+.mangotools__tinkoff-container .mangotools__tinkoff-installments:hover {
+  background-color: #324fbb !important;
+}
+@media (max-width: 1199px) {
+  .mangotools__tinkoff-container {
+    display: block;
+  }
+  .mangotools__tinkoff-container a {
+    width: 100%;
+  }
+  .mangotools__tinkoff-container a:first-child {
+    margin-bottom: 10px;
+  }
+}
+.t750__btn-wrapper a:hover {
+  background-color: #ff3131 !important;
 }

@@ -12,7 +12,7 @@ export default {
 
         GenericUtil.getType(element) === 'element' ? el.insertAdjacentElement(appendInserters[where], element) : el.insertAdjacentHTML(appendInserters[where], element);
 
-        return el;
+        return element;
     },
 
     create(name, options = {}) {
@@ -20,6 +20,10 @@ export default {
         this.set(element, options);
 
         return element;
+    },
+
+    createAndInject(name, options = {}, inject, where = 'bottom') {
+       return this.inject(inject, this.create(name, options), where);
     },
 
     getDataAttributes(element) {
@@ -68,8 +72,13 @@ export default {
                     });
                     break;
                 case 'events':
-                    Object.entries(params[param]).forEach(params => element.addEventListener(...params) );
+                    Object.entries(params[param]).forEach(params => element.addEventListener(...params));
 
+                    break;
+                case 'styles':
+                    for (let [name, style] of Object.entries(params[param])) {
+                        element.style[name] = style;
+                    }
                     break;
                 default:
                     let hyphenatedParam = StringUtil.hyphenate(param);

@@ -3,6 +3,14 @@ export default {
         return String(string).replace(/^\s+|\s+$/g, '');
     },
 
+    test(string, regexp) {
+       return regexp.test(this.trim(string));
+    },
+
+    isEmpty(string) {
+        return ['false', 'null', '', 'undefined', 'NaN'].includes(this.trim(string));
+    },
+
     substitute(string, object, regexp) {
         return String(string).replace(regexp || (/\\?\{([^{}]+)\}/g), (match, name) => {
             if (match.charAt(0) === '\\') return match.slice(1);
